@@ -1,20 +1,13 @@
-const query = `
-query{
-  getUsers{
-    id, login, admin
-  }
-}
-`
-const options = {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify({ query })
-}
+import { graphqlQuery } from './root_graphql_query';
 
-export const getUsers = async () => (
-  await fetch('http://localhost:4000/graphql', options)
-    .then(response => {
-      return response.json()
-    })
-)
-
+export const getUsers = async () => {
+  const query = `
+    query{
+      getUsers{
+        id, login, admin
+      }
+    }
+  `
+  const response = await graphqlQuery(query)
+  return response
+}
